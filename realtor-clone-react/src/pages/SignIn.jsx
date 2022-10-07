@@ -7,6 +7,8 @@ import { Link, useNavigate } from "react-router-dom"
 import OAuth from "../components/OAuth"
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
 
+import { toast } from "react-toastify"
+
 export default function SignIn() {
   const [showPassword, setShowPassword] = useState(false)
   const [formData, setFormData] = useState({
@@ -36,7 +38,8 @@ export default function SignIn() {
       }
     } catch (error) {
       toast.error("Bad user credentials")
-      //console.log(error.message)
+      console.log(error.code)
+      console.log(error.message)
     }
   }
   return (

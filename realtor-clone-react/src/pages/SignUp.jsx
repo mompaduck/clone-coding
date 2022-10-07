@@ -53,8 +53,9 @@ export default function SignUp() {
       toast.success("Sign up was successful")
       navigate("/")
     } catch (error) {
-      console.log(error)
       toast.error("Something went wrong with the registration")
+      console.log(error.code)
+      console.log(error.message)
     }
   }
   return (
