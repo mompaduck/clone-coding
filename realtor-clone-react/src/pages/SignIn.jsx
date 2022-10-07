@@ -29,6 +29,7 @@ export default function SignIn() {
 
   async function onSubmit(e) {
     e.preventDefault()
+
     try {
       const auth = getAuth()
       const userCredential = await signInWithEmailAndPassword(auth, email, password)
@@ -38,8 +39,8 @@ export default function SignIn() {
       }
     } catch (error) {
       toast.error("Bad user credentials")
-      console.log(error.code)
-      console.log(error.message)
+      //console.log(error.code)
+      //console.log(error.message)
     }
   }
   return (
