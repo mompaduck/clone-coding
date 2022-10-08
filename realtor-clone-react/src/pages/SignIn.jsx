@@ -5,7 +5,7 @@ import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai" // 비밀번호 �
 import { Link, useNavigate } from "react-router-dom"
 
 import OAuth from "../components/OAuth"
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
+import { signInWithEmailAndPassword, getAuth } from "firebase/auth"
 
 import { toast } from "react-toastify"
 
@@ -17,7 +17,7 @@ export default function SignIn() {
   })
 
   const { email, password } = formData
-
+  const navigate = useNavigate()
   function onChange(e) {
     //console.log(e.target.value)
     setFormData(prevState => ({
@@ -25,22 +25,22 @@ export default function SignIn() {
       [e.target.id]: e.target.value
     }))
   }
-  const navigate = useNavigate()
 
   async function onSubmit(e) {
     e.preventDefault()
-
+    console.log("onSubmit")
     try {
       const auth = getAuth()
       const userCredential = await signInWithEmailAndPassword(auth, email, password)
+
       if (userCredential.user) {
         // Signed in
         navigate("/")
       }
     } catch (error) {
       toast.error("Bad user credentials")
-      //console.log(error.code)
-      //console.log(error.message)
+      console.log(error.code)
+      console.log(error.message)
     }
   }
   return (
@@ -115,9 +115,8 @@ export default function SignIn() {
             after:border-t after:flex-1 after:border-gray-300">
               <p className="text-center font-semibold mx-4">OR</p>
             </div>
-
-            <OAuth />
           </form>
+          <OAuth />
         </div>
       </div>
     </section>

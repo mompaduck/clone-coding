@@ -1,4 +1,5 @@
 import { initializeApp } from "firebase/app"
+
 import { getFirestore } from "firebase/firestore"
 
 // TODO: Add SDKs for Firebase products that you want to use
@@ -16,5 +17,6 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig)
-console.log(process.env.REACT_APP_API_KEY)
+
+//export const authService = getAuth(app)
 export const db = getFirestore(app)
