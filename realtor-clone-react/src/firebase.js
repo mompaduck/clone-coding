@@ -6,15 +6,15 @@ import { getFirestore } from "firebase/firestore"
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyB15eOCOxR5jMtGznFlQ0E3hC2Nj8IInmE",
-  authDomain: "realtor-clone-react-7e606.firebaseapp.com",
-  projectId: "realtor-clone-react-7e606",
-  storageBucket: "realtor-clone-react-7e606.appspot.com",
-  messagingSenderId: "939578091605",
-  appId: "1:939578091605:web:9d17eadc56e3d293a44cdc"
+  apiKey: process.env.REACT_APP_API_KEY,
+  authDomain: process.env.REACT_APP_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_APP_ID
 }
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig)
-
+console.log(process.env.REACT_APP_API_KEY)
 export const db = getFirestore(app)
