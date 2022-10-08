@@ -21,6 +21,7 @@ import { useEffect } from "react"
 export default function Profile() {
   const auth = getAuth()
   const navigate = useNavigate()
+
   const [changeDetail, setChangeDetail] = useState(false)
   const [listings, setListings] = useState(null)
   const [loading, setLoading] = useState(true)
@@ -52,11 +53,8 @@ export default function Profile() {
         })
 
         // update name in the firestore
-
         const docRef = doc(db, "users", auth.currentUser.uid)
-        await updateDoc(docRef, {
-          name
-        })
+        await updateDoc(docRef, { name })
       }
       toast.success("Profile details updated")
     } catch (error) {
@@ -113,6 +111,14 @@ export default function Profile() {
               </p>
             </div>
           </form>
+          <button
+            type="submit"
+            className="w-full bg-blue-600 text-white uppercase px-7 py-3 text-sm font-medium rounded shadow-md hover:bg-blue-700 transition duration-150 ease-in-out hover:shadow-lg active:bg-blue-800">
+            <Link to="/create-listing" className="flex justify-center items-center">
+              <FcHome className="mr-2 text-3xl bg-red-200 rounded-full p-1 border-2" />
+              Sell or rent your home
+            </Link>
+          </button>
         </div>
       </section>
     </>
