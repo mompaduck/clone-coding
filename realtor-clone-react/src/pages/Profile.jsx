@@ -45,6 +45,7 @@ export default function Profile() {
   }
 
   async function onSubmit() {
+    console.log("===========================onsubmit")
     try {
       if (auth.currentUser.displayName !== name) {
         //update display name in firebase auth
@@ -99,6 +100,7 @@ export default function Profile() {
   function onEdit(listingID) {
     navigate(`/edit-listing/${listingID}`)
   }
+
   return (
     <>
       <section className="max-w-6xl mx-auto flex justify-center items-center flex-col">
@@ -114,8 +116,9 @@ export default function Profile() {
               disabled={!changeDetail}
               onChange={onChange}
               className={`mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border
-               border-gray-300 rounded transition ease-in-out ${changeDetail &&
-                 "bg-red-200 focus:bg-red-200"}`}
+               border-gray-300 rounded transition ease-in-out ${
+                 changeDetail && "bg-red-200 focus:bg-red-200"
+               }`}
             />
 
             {/* Email Input */}
@@ -136,24 +139,21 @@ export default function Profile() {
                     changeDetail && onSubmit()
                     setChangeDetail(prevState => !prevState)
                   }}
-                  className="text-red-600 hover:text-red-700 transition ease-in-out duration-200 ml-1 cursor-pointer"
-                >
+                  className="text-red-600 hover:text-red-700 transition ease-in-out duration-200 ml-1 cursor-pointer">
                   {changeDetail ? "Apply change" : "Edit"}
                 </span>
               </p>
               <p
                 onClick={onLogout}
-                className="text-blue-600 hover:text-blue-800 transition duration-200 ease-in-out cursor-pointer"
-              >
+                className="text-blue-600 hover:text-blue-800 transition duration-200 ease-in-out cursor-pointer">
                 Sign out
               </p>
             </div>
           </form>
+          {/* //============================= */}
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white uppercase px-7 py-3 text-sm font-medium rounded shadow-md
-             hover:bg-blue-700 transition duration-150 ease-in-out hover:shadow-lg active:bg-blue-800"
-          >
+            className="w-full bg-blue-600 text-white uppercase px-7 py-3 text-sm font-medium rounded shadow-md hover:bg-blue-700 transition duration-150 ease-in-out hover:shadow-lg active:bg-blue-800">
             <Link to="/create-listing" className="flex justify-center items-center">
               <FcHome className="mr-2 text-3xl bg-red-200 rounded-full p-1 border-2" />
               Sell or rent your home
@@ -161,6 +161,7 @@ export default function Profile() {
           </button>
         </div>
       </section>
+      {/* //============================= */}
       {/* 사용자가 등록한 리스트 보여주기 */}
       <div className="max-w-6xl px-3 mt-6 mx-auto">
         {!loading && listings.length > 0 && (
