@@ -16,7 +16,7 @@ import { toast } from "react-toastify"
 import { db } from "../firebase"
 import { FcHome } from "react-icons/fc"
 import { useEffect } from "react"
-//import ListingItem from "../components/ListingItem"
+import ListingItem from "../components/ListingItem"
 
 export default function Profile() {
   const auth = getAuth()
@@ -62,6 +62,41 @@ export default function Profile() {
     }
   }
 
+  //사용자가 등록했던 부동산 매물 가져오기
+  useEffect(() => {
+    async function fetchUserListings() {
+      const listingRef = collection(db, "listings")
+      const q = query(
+        listingRef,
+        where("userRef", "==", auth.currentUser.uid),
+        orderBy("timestamp", "desc") //new one comes first
+      )
+      const querySnap = await getDocs(q)
+      let listings = []
+      querySnap.forEach(doc => {
+        return listings.push({
+          id: doc.id,
+          data: doc.data()
+        })
+      })
+      setListings(listings)
+      setLoading(false)
+    }
+    fetchUserListings()
+  }, [auth.currentUser.uid])
+  //리스트 삭제하기
+  async function onDelete(listingID) {
+    if (window.confirm("Are you sure you want to delete?")) {
+      await deleteDoc(doc(db, "listings", listingID))
+      const updatedListings = listings.filter(listing => listing.id !== listingID)
+      setListings(updatedListings)
+      toast.success("Successfully deleted the listing")
+    }
+  }
+  //리스트 수정하기
+  function onEdit(listingID) {
+    navigate(`/edit-listing/${listingID}`)
+  }
   return (
     <>
       <section className="max-w-6xl mx-auto flex justify-center items-center flex-col">
@@ -122,6 +157,25 @@ export default function Profile() {
           </button>
         </div>
       </section>
+      {/* 사용자가 등록한 리스트 보여주기 */}
+      <div className="max-w-6xl px-3 mt-6 mx-auto">
+        {!loading && listings.length > 0 && (
+          <>
+            <h2 className="text-2xl text-center font-semibold mb-6">My Listings</h2>
+            <ul className="sm:grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5">
+              {listings.map(listing => (
+                <ListingItem
+                  key={listing.id}
+                  id={listing.id}
+                  listing={listing.data}
+                  onDelete={() => onDelete(listing.id)}
+                  onEdit={() => onEdit(listing.id)}
+                />
+              ))}
+            </ul>
+          </>
+        )}
+      </div>
     </>
   )
 }
