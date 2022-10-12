@@ -1,3 +1,5 @@
+import React from "react"
+
 import spinner from "../assets/svg/spinner2.svg"
 export default function Spinner() {
   return (

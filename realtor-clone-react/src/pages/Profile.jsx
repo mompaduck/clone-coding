@@ -10,7 +10,7 @@ import {
   where
 } from "firebase/firestore"
 
-import { useState } from "react"
+import React, { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import { toast } from "react-toastify"
 import { db } from "../firebase"
@@ -71,6 +71,7 @@ export default function Profile() {
         where("userRef", "==", auth.currentUser.uid),
         orderBy("timestamp", "desc") //new one comes first
       )
+
       const querySnap = await getDocs(q)
       let listings = []
       querySnap.forEach(doc => {
@@ -84,6 +85,7 @@ export default function Profile() {
     }
     fetchUserListings()
   }, [auth.currentUser.uid])
+
   //리스트 삭제하기
   async function onDelete(listingID) {
     if (window.confirm("Are you sure you want to delete?")) {
@@ -112,9 +114,8 @@ export default function Profile() {
               disabled={!changeDetail}
               onChange={onChange}
               className={`mb-6 w-full px-4 py-2 text-xl text-gray-700 bg-white border
-               border-gray-300 rounded transition ease-in-out ${
-                 changeDetail && "bg-red-200 focus:bg-red-200"
-               }`}
+               border-gray-300 rounded transition ease-in-out ${changeDetail &&
+                 "bg-red-200 focus:bg-red-200"}`}
             />
 
             {/* Email Input */}
@@ -135,13 +136,15 @@ export default function Profile() {
                     changeDetail && onSubmit()
                     setChangeDetail(prevState => !prevState)
                   }}
-                  className="text-red-600 hover:text-red-700 transition ease-in-out duration-200 ml-1 cursor-pointer">
+                  className="text-red-600 hover:text-red-700 transition ease-in-out duration-200 ml-1 cursor-pointer"
+                >
                   {changeDetail ? "Apply change" : "Edit"}
                 </span>
               </p>
               <p
                 onClick={onLogout}
-                className="text-blue-600 hover:text-blue-800 transition duration-200 ease-in-out cursor-pointer">
+                className="text-blue-600 hover:text-blue-800 transition duration-200 ease-in-out cursor-pointer"
+              >
                 Sign out
               </p>
             </div>
@@ -149,7 +152,8 @@ export default function Profile() {
           <button
             type="submit"
             className="w-full bg-blue-600 text-white uppercase px-7 py-3 text-sm font-medium rounded shadow-md
-             hover:bg-blue-700 transition duration-150 ease-in-out hover:shadow-lg active:bg-blue-800">
+             hover:bg-blue-700 transition duration-150 ease-in-out hover:shadow-lg active:bg-blue-800"
+          >
             <Link to="/create-listing" className="flex justify-center items-center">
               <FcHome className="mr-2 text-3xl bg-red-200 rounded-full p-1 border-2" />
               Sell or rent your home
