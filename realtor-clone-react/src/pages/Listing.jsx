@@ -18,6 +18,9 @@ import {
   FaChair
 } from "react-icons/fa" //React Icons 에서 검색해서 찾은 아이콘
 
+//https://react-leaflet.js.org/docs/start-installation/ 참고
+import { MapContainer, Marker, Popup, TileLayer } from "react-leaflet"
+
 import Contact from "../components/Contact"
 
 export default function Listing() {
@@ -148,7 +151,21 @@ export default function Listing() {
           {contactLandlord && <Contact userRef={listing.userRef} listing={listing} />}
         </div>
         {/* 지도 보여주기  */}
-        <div className="w-full h-[200px] md:h-[400px] z-10 overflow-x-hidden mt-6 md:mt-0 md:ml-2"></div>
+        <div className="w-full h-[200px] md:h-[400px] z-10 overflow-x-hidden mt-6 md:mt-0 md:ml-2">
+          <MapContainer
+            center={[listing.geolocation.lat, listing.geolocation.lng]}
+            zoom={13}
+            scrollWheelZoom={false}
+            style={{ height: "100%", width: "100%" }}>
+            <TileLayer
+              attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <Marker position={[listing.geolocation.lat, listing.geolocation.lng]}>
+              <Popup>{listing.address}</Popup>
+            </Marker>
+          </MapContainer>
+        </div>
       </div>
     </main>
   )
