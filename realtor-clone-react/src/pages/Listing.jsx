@@ -18,6 +18,8 @@ import {
   FaChair
 } from "react-icons/fa" //React Icons 에서 검색해서 찾은 아이콘
 
+import Contact from "../components/Contact"
+
 export default function Listing() {
   const auth = getAuth()
   const params = useParams()
@@ -136,11 +138,14 @@ export default function Listing() {
             <div className="mt-6">
               <button
                 onClick={() => setContactLandlord(true)}
-                className="px-7 py-3 bg-blue-600 text-white font-medium text-sm uppercase rounded shadow-md hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg w-full text-center transition duration-150 ease-in-out ">
+                className="px-7 py-3 bg-blue-600 text-white font-medium text-sm uppercase rounded shadow-md
+               hover:bg-blue-700 hover:shadow-lg focus:bg-blue-700 focus:shadow-lg w-full text-center transition 
+               duration-150 ease-in-out ">
                 Contact Landlord
               </button>
             </div>
           )}
+          {contactLandlord && <Contact userRef={listing.userRef} listing={listing} />}
         </div>
         {/* 지도 보여주기  */}
         <div className="w-full h-[200px] md:h-[400px] z-10 overflow-x-hidden mt-6 md:mt-0 md:ml-2"></div>
