@@ -84,6 +84,7 @@ export default function CreateListing() {
     let geolocation = {}
     let location
     if (geolocationEnabled) {
+      //구글맵에서 경도와 위도 알아오기
       const response = await fetch(
         `https://maps.googleapis.com/maps/api/geocode/json?address=${address}&key=${process.env.REACT_APP_GEOCODE_API_KEY}`
       )

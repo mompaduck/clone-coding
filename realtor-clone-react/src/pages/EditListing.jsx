@@ -140,6 +140,7 @@ export default function EditListing() {
       geolocation.lng = longitude
     }
 
+    //기존 이미지 삭제를 안하고 있음.
     async function storeImage(image) {
       return new Promise((resolve, reject) => {
         const storage = getStorage()
