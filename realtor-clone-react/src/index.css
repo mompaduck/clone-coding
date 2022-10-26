@@ -15,6 +15,7 @@ body {
   background: #a8dadc !important;
 }
 
+/* remove scrolbar */
 html::-webkit-scrollbar {
   display: none;
 }
